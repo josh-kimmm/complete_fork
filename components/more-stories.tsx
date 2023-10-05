@@ -1,9 +1,10 @@
-import PostPreview from './post-preview'
-import Post from '../types/post'
+"use client";
+import PostPreview from "./post-preview";
+import Post from "../types/post";
 
 type Props = {
-  posts: Post[]
-}
+  posts: Post[];
+};
 
 const MoreStories = ({ posts }: Props) => {
   return (
@@ -21,11 +22,12 @@ const MoreStories = ({ posts }: Props) => {
             author={post.author}
             slug={post.slug}
             excerpt={post.excerpt}
+            premium={post.premium}
           />
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default MoreStories
+export default MoreStories;
