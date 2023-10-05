@@ -1,17 +1,19 @@
-import Avatar from './avatar'
-import DateFormatter from './date-formatter'
-import CoverImage from './cover-image'
-import Link from 'next/link'
-import Author from '../types/author'
+"use client";
+import Avatar from "./avatar";
+import DateFormatter from "./date-formatter";
+import CoverImage from "./cover-image";
+import Link from "next/link";
+import Author from "../types/author";
 
 type Props = {
-  title: string
-  coverImage: string
-  date: string
-  excerpt: string
-  author: Author
-  slug: string
-}
+  title: string;
+  coverImage: string;
+  date: string;
+  excerpt: string;
+  author: Author;
+  slug: string;
+  premium: boolean;
+};
 
 const HeroPost = ({
   title,
@@ -20,7 +22,16 @@ const HeroPost = ({
   excerpt,
   author,
   slug,
+  premium,
 }: Props) => {
+  const loggedIn = typeof window !== "undefined" && localStorage.getItem("jwt");
+  const showPostContent =
+    !premium || (premium && loggedIn) ? (
+      <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
+    ) : (
+      <p>You need to be logged in!</p>
+    );
+
   return (
     <section>
       <div className="mb-8 md:mb-16">
@@ -38,12 +49,12 @@ const HeroPost = ({
           </div>
         </div>
         <div>
-          <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
+          {showPostContent}
           <Avatar name={author.name} picture={author.picture} />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HeroPost
+export default HeroPost;
